@@ -65,6 +65,24 @@ name clashes with other variables.
 
                CVS must be on your path for this to work.
 
+ |g:perl_h2xs_askedit|		*g:perl-h2xs_askedit* *perl_h2xs_askedit*
+              - If defined we ask the user if they want to edit the module if
+               we find out that the module ha already been created. I.e. if
+               you type: >
+
+                   vim Example::Test.pm
+
+<              it should be expanded once h2xs has run to >
+
+                   vim Example/Test/Test.pm
+
+<              but if the user runs the same command then previously the
+               program would fail because it already existed and you would
+               have to retype Example/Test/Test.pm by hand. Now the program
+               makes the expansion for you and tests for this file. If it
+               doesn't find it, everything progresses as normal, if it does
+               it will edit that file unless you set this variable.
+
  |g:perl_h2xs_author|			*g:perl-h2xs_author* *perl_h2xs_author*
               - If defined the Makefile.PL and the newly created .pm file will
                have the default of "A. U. Thor ..." replaced with the contents

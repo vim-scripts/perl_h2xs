@@ -60,3 +60,35 @@ have to deal with this and not be stupid because Vim has not support for
  if(has('psychic_powers'))
 
 
+CHANGE LOG:
+
+Changes since v0.5
+
+ * Fixed error in substitute() regexp for calculating module filename. Was
+   turning Eg/Eg1/Test => Eg/Eg1/Test/Eg1/Test.pm, now correctly produces
+   Eg/Eg1/Test/Test.pm
+
+ * Filename of module calculated before asking user any questions. This
+   allows us to test if this file exists and if it does to ask the user if
+   the meant to edit the module filename. If so a user can type:
+
+    vim Eg::Test.pm
+
+   to run h2xs which creates the file, then quit out and find that
+
+    !v
+
+   (which runs the same command "vim Eg::Test.pm") will edit the newly created
+   module. Previously doing this would cause the program to see that the file
+   Eg::Test.pm didn't exist then ask the user to create the module and then fail
+   because it already existed. Now it finds if the file Eg/Test/Test.pm exists,
+   asks if they want to edit it if it does, if not it asks if they want to create
+   it.
+
+ * Introduction  variable g:perl_h2xs_askedit which overrides the above prompting
+   to edit if the module has already been created.
+
+ * Prints prompt before "cvs add/import". Previous the password prompt sent by
+   cvs was lost and the program just seemed to hang until you hit enter 3 times :p
+
+   
