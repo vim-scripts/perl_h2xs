@@ -1,0 +1,88 @@
+*perl-h2xs.txt*      For Vim version 6.1.  Last change: 2002 Jul 9
+
+
+		PERL NEW-PM PLUGIN REFERENCE by Colin Keith
+
+==============================================================================
+1. Plugin information					*perl-h2xs-info*
+
+The Perl_h2xs.vim plugin is a plugin that allows you to automate the process of
+perl module creation. Writing Perl modules properly is time consuming when you
+do it by hand, but it can be simplified by using the h2xs program that comes as
+part of the Perl distribution to create the module for you.
+
+
+h2xs is actually intended to be used to create the skeleton structure for the
+files needed to extend Perl by converting the contents of a C .h file into a
+format understood by Perl. The idea behind this is that you can extend Perl by
+interfacing directly with C functions using XS (eXtensionS) - a sort of Perl/C
+interface. It just happens that given the right flags h2xs skips the C files
+and creates a reliable module structure. This is the format used by most of the
+modulse distributed with Perl and is a great way to write your modules.
+
+
+As one of the virtues of a Perl programmer is laziness, I wrote this little
+plugin to prevent me from having to run h2xs by hand, then editing the files.
+
+==============================================================================
+2. Perl-h2xs Usage				*perl-h2xs-usage* *perl-h2xs*
+
+This module acts automatically when you edit a .pm file. If the filetype of the
+edited file is determined to be Perl then this module is loaded from your local
+ftplugin directory and, assuming you have h2xs installed, will run h2xs to
+create the module, and then edit the newly created file.
+
+If you don't want to create the module, just say 'no' (or anything that doesn't
+start with a Y or y) when prompted and you'll be returned to your file. If you
+will always want to do this without prompting, you can set the
+|g:perl_h2xs_autocreate| variable to skip this part.
+
+
+==============================================================================
+3. Perl-h2xs Variables			*perl-h2xs-variables* *g:perl_h2xs*
+
+The following variables control how you want the perl_h2xs.vim module to
+behave. The names maybe clumsy, but they are specifically used to prevent
+name clashes with other variables.
+
+ |g:perl_h2xs_autocreate|			*g:perl_h2xs_autocreate*
+
+              - If set then a user is not asked if they wish to create this
+               module. The module proceeds as though you had answered yes.
+
+
+ |g:perl_h2xs_flags|			*g:perl-h2xs_flags* *perl_h2xs_flags*
+
+              - By default h2xs is run with the flags -XAn (see the man page
+               for details). If you want to use something else set it in this
+               variable.
+
+ |g:perl_h2xs_usecvs|			*g:perl-h2xs_usecvs* *perl_h2xs_usecvs*
+              - If defined we explicitly configure for cvs. If the directory
+               we are in is already part of a CVS repository, we run "cvs add"
+               to add the skeleton structure for this module to the CVS server.
+               If it isn't we'll use "cvs import".
+
+               CVS must be on your path for this to work.
+
+ |g:perl_h2xs_author|			*g:perl-h2xs_author* *perl_h2xs_author*
+              - If defined the Makefile.PL and the newly created .pm file will
+               have the default of "A. U. Thor ..." replaced with the contents
+               of this variable. There is no purpose for this, it is just one
+               of those little changes that needs doing and since the purpose
+               of this plugin is to automate the setup process it's included.
+
+
+==============================================================================
+
+4. Problems						*perl-h2xs-problems*
+
+If you have problems using this module or anything like that, e-mail me.  If
+you want to shower me with praise, money, women, pizza, chocolate (not in any
+order of preference :), I'll even take bored or "Why do you keep writing this
+stuff? You're very wierd" comments. Its all welcome :-)
+
+ Colin Keith <vim at ckeith.clara.net>
+
+ vim:tw=78:ts=8:ft=help:norl:
+
